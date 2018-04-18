@@ -22,9 +22,9 @@ class JudgmentsClassifier():
             'sprawy o wykroczenia',
             'sprawy w zakresie prawa konkurencji'
         ]
-        self.tuned_parameters = [{'kernel': ['rbf'], 'gamma': [1e-1, 1e-2, 1e-3, 1e-4, 1e-5],
-                     'C': [1, 10, 100, 1000, 2000, 5000]},
-                    {'kernel': ['linear'], 'C': [1, 10, 100, 1000, 2000, 5000]}]
+        self.tuned_parameters = [{'kernel': ['rbf', 'poly', 'sigmoid'],    'gamma': [1e-1, 1e-2, 1e-3, 1e-4, 1e-5],
+                     'C': [1, 10, 100, 1000, 2000, 5000, 10000, 15000]},
+                    {'kernel': ['linear'], 'C': [1, 10, 100, 1000, 2000, 5000, 10000, 15000,]}]
         self.scores = ['precision']
 
     def transform_and_train_classifier(self):
@@ -37,7 +37,7 @@ class JudgmentsClassifier():
         return result_dict, clf, hyper_params   
 
     def split_into_train_valid_tests(self, X, Y):
-        X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.25)
+        X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.25, random_state=42)
         return X_train, Y_train, X_test, Y_test
 
     def __transform_Y_set__(self, Y):

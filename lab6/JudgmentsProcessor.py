@@ -49,7 +49,7 @@ class JudgmentsProcessor():
             words = " ".join(sublist)
             new_X.append(words)
 
-        return new_X, Y
+        return new_X, Y, judgments_categories_counter
 
     def __extract_signatures_categories__(self):
         signatures_flatten = [item for sublist in self.__raw_signatures__ for item in sublist]
@@ -123,6 +123,7 @@ class JudgmentsProcessor():
                 idx += 1
                 if idx >= number_of_rows:
                     break
+        print (most_common_words)
         return most_common_words
 
     def __filter_based_on_tagger_list__(self, judgments_signature_list):
